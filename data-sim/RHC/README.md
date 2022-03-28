@@ -1,0 +1,1 @@
+Additional location to store simulated data files. Actual files are gitignored.
