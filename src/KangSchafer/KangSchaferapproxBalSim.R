@@ -1,6 +1,13 @@
 library(mvtnorm)
 library(MASS)
 
+library(readr)
+library(stringr)
+library(fs)
+library(glue)
+
+out_dir <- "data-sim/KangSchafer/"
+
 # Simulate data
 kangschafer = function(n_obs) {
 # Z are the true covariates
@@ -50,7 +57,8 @@ for (i in 1:200){
         "t_ind"
         )  
     data = cbind(data_frame, p, y)
-    write.csv(data, paste(i,"kangschafer_approxbal_good.csv", sep=""), row.names = F, quote = F)
+    write_csv(data, path(out_dir, glue("{str_pad(i, width = 3, pad = '0')}_kangschafer_approxbal_good.csv")))
+    
     # Treatment indicator 
     t_ind = "t_ind"
 
@@ -71,7 +79,7 @@ sum(y  *  t) / sum(t)
 sum(y * (1 - t)) / sum((1 - t))
 
 # weighted y
-sum(data_frame_weights$weights  *  y)
+# sum(data_frame_weights$weights  *  y)
 
 
 
